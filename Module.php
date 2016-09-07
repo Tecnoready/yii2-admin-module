@@ -136,7 +136,9 @@ class Module extends \yii\base\Module implements BootstrapInterface {
      * @throws \yii\base\InvalidConfigException
      */
     public function registerEntity($entity, $forceRegister = false) {
-        $id = call_user_func([$entity, 'slug']);
+        $instance = new $entity([
+        ]);
+        $id = call_user_func_array([$instance, 'slug'],[]);
 
         if (isset($this->entities[$id]) && !$forceRegister) {
             throw new InvalidConfigException(sprintf('Item with id "%s" already registered', $id));
@@ -147,6 +149,8 @@ class Module extends \yii\base\Module implements BootstrapInterface {
         ]);
 
         $this->entitiesClasses[$entity] = $id;
+        
+        return $this->entities[$id];
     }
 
     /**
