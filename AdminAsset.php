@@ -5,7 +5,7 @@ namespace asdfstudio\admin;
 use yii\web\AssetBundle;
 
 class AdminAsset extends AssetBundle {
-    public $sourcePath = '@vendor/sgdot/yii2-admin-module/assets';
+    public $sourcePath = '@vendor/tecnoready/yii2-admin-module/assets';
     public $css        = [
         'css/sb-admin.css',
     ];
