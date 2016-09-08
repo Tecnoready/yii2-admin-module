@@ -15,7 +15,8 @@ use yii\web\Controller as WebController;
  */
 abstract class Controller extends WebController {
 
-    public $layout = 'main';
+//    public $layout = 'main'; 
+    public $layout = false; 
 
     public function beforeAction($action) {
         if (parent::beforeAction($action)) {

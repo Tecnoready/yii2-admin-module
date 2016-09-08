@@ -81,7 +81,7 @@ class ManageController extends Controller {
                 'query' => $query
             ]);
 
-            return $this->render('index', [
+            return $this->render('index.twig', [
                 'entity' => $entity,
                 'modelsProvider' => $modelsProvider,
             ]);

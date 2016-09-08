@@ -1,0 +1,9 @@
+{% extends "@admin-module/views/layouts/base.twig"%}
+
+{% block pre_body %}
+    {{ parent() }}
+    {% block page_breadcrumb %}
+        {% include '@admin-module/views/layouts/breadcrumb.twig' %}
+    {% endblock page_breadcrumb %}
+{% endblock pre_body %}
+
