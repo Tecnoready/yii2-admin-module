@@ -20,7 +20,7 @@
     "yiisoft/yii2-bootstrap": "*",
     "rmrevin/yii2-fontawesome": "2.2.1",
     "cakebake/yii2-bootstrap-select": "*",
-    "knplabs/knp-menu": "v2.1.*"
+    "knplabs/knp-menu": "^2.1"
   },
   "autoload": {
     "psr-4": {
