@@ -9,7 +9,7 @@
         {{ html.csrfMetaTags() | raw }}
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         {{ set(this, 'title',("Dashboard"|trans({},"admin"))) }}
-        {{ breadcrumbs(this.title) }}
+        {{ breadcrumb({"/admin/admin/index":this.title}) }}
         <title>{{ param("appName") }}{% if this.title is not empty %} | {{ this.title }}{% endif%}</title>
         {% block meta '' %}
             {{ this.head() }}

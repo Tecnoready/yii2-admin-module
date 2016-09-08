@@ -3,7 +3,18 @@
 {% block pre_body %}
     {{ parent() }}
     {% block page_breadcrumb %}
-        {% include '@admin-module/views/layouts/breadcrumb.twig' %}
     {% endblock page_breadcrumb %}
+    
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-4">
+            <h2>{{ this.title }}</h2>
+            {{ breadcrumb_render() }}
+        </div>
+        <div class="col-sm-8">
+            <div class="title-action">
+                {% block action_area '' %}
+            </div>
+        </div>
+    </div>
 {% endblock pre_body %}
 

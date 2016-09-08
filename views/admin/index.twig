@@ -1,19 +1,13 @@
 {% extends "@admin-module/views/layouts/main.twig"%}
 
+{% block page_breadcrumb %}
+{% endblock page_breadcrumb %}
 
+{% block action_area %}
+    <a href="" class="btn btn-primary">This is action area</a>
+{% endblock action_area %}
 
 {% block page_body %}
-    
-    
-    <?php
-
-    /**
-    * @var \yii\web\View $this
-    */
-
-    $this->title = Yii::t('admin', 'Dashboard');
-    $this->params['breadcrumbs'][] = $this->title;
-    ?>
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
             <div class="col-lg-12">
