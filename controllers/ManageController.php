@@ -80,7 +80,7 @@ class ManageController extends Controller {
             $modelsProvider = new ActiveDataProvider([
                 'query' => $query
             ]);
-
+            Yii::$container->get("common.manager.breadcrumb")->breadcrumb($entity->slug());
             return $this->render('index.twig', [
                 'entity' => $entity,
                 'modelsProvider' => $modelsProvider,

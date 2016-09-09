@@ -120,6 +120,13 @@ class Module extends \yii\base\Module implements BootstrapInterface {
         Yii::$container->setSingleton("admin.builder.menu_sidebar",function(){
             return new models\menu\MenuSidebarBuilder();
         });
+        Yii::$container->setSingleton("common.manager.breadcrumb",function(){
+            $breadcrumb = new \Tecnoready\Yii2\Common\Services\BreadcrumbManager();
+            $breadcrumb->breadcrumb([
+                "/admin/admin/index" => Yii::t("admin", "Dashboard"),
+            ]);
+            return $breadcrumb;
+        });
         Yii::setAlias('admin-module',__DIR__ . '/');
         $this->registerTranslations();
     }

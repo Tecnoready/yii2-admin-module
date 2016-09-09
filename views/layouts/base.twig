@@ -9,7 +9,6 @@
         {{ html.csrfMetaTags() | raw }}
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         {{ set(this, 'title',("Dashboard"|trans({},"admin"))) }}
-        {{ breadcrumb({"/admin/admin/index":this.title}) }}
         <title>{{ param("appName") }}{% if this.title is not empty %} | {{ this.title }}{% endif%}</title>
         {% block meta '' %}
             {{ this.head() }}
@@ -23,8 +22,8 @@
                             <li class="nav-header">
                                 <div class="dropdown profile-element">
                                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                                        <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">David Williams</strong>
-                                            </span> <span class="text-muted text-xs block">Art Director <b class="caret"></b></span> </span> </a>
+                                        <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{ app.user.identity }}</strong>
+                                            </span> <span class="text-muted text-xs block">Administrador <b class="caret"></b></span> </span> </a>
                                     <ul class="dropdown-menu animated fadeInRight m-t-xs">
                                         <li><a href="#">Logout</a></li>
                                     </ul>
