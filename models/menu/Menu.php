@@ -43,7 +43,7 @@ class Menu extends Object
         $index = call_user_func_array([$this, 'addItemOriginal'], func_get_args());
 
         $this->order[] = ['item', $index];
-        return $index;
+        return $this->items[$index];
     }
 
     /**

@@ -158,6 +158,38 @@ class Module extends \yii\base\Module implements BootstrapInterface {
         
         return $this->entities[$id];
     }
+    
+    /**
+     * Register model in admin dashboard
+     *
+     * @param string|Entity $entity
+     * @param bool          $forceRegister
+     *
+     * @throws \yii\base\InvalidConfigException
+     */
+    public function addEntity($entity,$label,$parameters = [], $forceRegister = false) {
+        $group = null;
+        $labelCatalogue = "admin";
+        //label_catalogue,group
+        $instance = new $entity([
+        ]);
+        $id = call_user_func_array([$instance, 'slug'],[]);
+
+        if (isset($this->entities[$id]) && !$forceRegister) {
+            throw new InvalidConfigException(sprintf('Item with id "%s" already registered', $id));
+        }
+
+        $this->entities[$id] = new $entity([
+            'id' => $id,
+        ]);
+
+        $this->entitiesClasses[$entity] = $id;
+        $entityInstance = $this->entities[$id];
+        $item = $this->sidebar->addItem($entityInstance);
+        $item->group = $group;
+        $item->labelCatalogue = $labelCatalogue;
+        return $entityInstance;
+    }
 
     /**
      * Register controller in module. Needed for creating custom pages

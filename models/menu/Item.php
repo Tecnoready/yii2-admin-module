@@ -33,6 +33,18 @@ class Item extends Object
      * @var callable|boolean
      */
     public $active;
+    
+    /**
+     * Grupo
+     * @var type 
+     */
+    public $group;
+    
+    public $labelCatalogue;
+    
+    public $icon;
+    
+    public $tag;
 
     /**
      * @inheritdoc
