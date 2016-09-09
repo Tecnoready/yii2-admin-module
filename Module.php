@@ -114,6 +114,12 @@ class Module extends \yii\base\Module implements BootstrapInterface {
             $this->urlPrefix . '/manage/<entity:[\w\d\._-]+>/<id:[\w\d\._-]+>/delete' => 'admin/manage/delete',
 
         ]);
+        Yii::$container->setSingleton("admin.module_service",function(){
+            return new models\AdminModuleService();
+        });
+        Yii::$container->setSingleton("admin.builder.menu_sidebar",function(){
+            return new models\menu\MenuSidebarBuilder();
+        });
         Yii::setAlias('admin-module',__DIR__ . '/');
         $this->registerTranslations();
     }

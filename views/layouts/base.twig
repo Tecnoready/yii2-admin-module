@@ -33,14 +33,8 @@
                                     IN+
                                 </div>
                             </li>
-                            <li class="active">
-                                <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">Main view</span></a>
-                            </li>
-                            <li>
-                                <a href="minor.html"><i class="fa fa-th-large"></i> <span class="nav-label">Minor view</span> </a>
-                            </li>
+                            {{ adminModuleService.renderSideBar()|raw }}
                         </ul>
-
                     </div>
                 </nav>
 
@@ -66,22 +60,22 @@
                         </nav>
                     </div>
                     {% block pre_body '' %}
-                    {% block page_body 'Replace "page_body"' %}
-                    {% block post_body '' %}
-                    <div class="footer">
-                        <div class="pull-right">
-                            10GB of <strong>250GB</strong> Free.
+                        {% block page_body 'Replace "page_body"' %}
+                            {% block post_body '' %}
+                                <div class="footer">
+                                    <div class="pull-right">
+                                        10GB of <strong>250GB</strong> Free.
+                                    </div>
+                                    <div>
+                                        <strong>Copyright</strong> Example Company &copy; 2014-2015
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
-                        <div>
-                            <strong>Copyright</strong> Example Company &copy; 2014-2015
-                        </div>
-                    </div>
 
-                </div>
-            </div>
+                        {{ this.endBody() }}
+                    </body>
 
-            {{ this.endBody() }}
-        </body>
-
-    </html>
-    {{ this.endPage() }}
+                </html>
+                {{ this.endPage() }}

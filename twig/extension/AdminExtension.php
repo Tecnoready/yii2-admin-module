@@ -16,8 +16,13 @@ namespace asdfstudio\admin\twig\extension;
  *
  * @author Carlos Mendoza <inhack20@gmail.com>
  */
-class AdminExtension extends \Twig_Extension
+class AdminExtension extends \Twig_Extension implements \Twig_Extension_GlobalsInterface
 {
+    public function getGlobals() {
+        return [
+            "adminModuleService" => \Yii::$container->get("admin.module_service"),
+        ];
+    }
     public function getName() {
         return "yii2_admin";
     }
