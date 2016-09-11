@@ -14,6 +14,21 @@ use yii\helpers\Html;
 
 class ActionColumn extends \yii\grid\ActionColumn {
 
+    public $template = '
+        <div class="btn-group">
+          <button type="button" class="btn btn-default">{view}</button>
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="caret"></span>
+            <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <ul class="dropdown-menu">
+            <li>{view}</li> 
+            <li>{update}</li> 
+            <li role="separator" class="divider"></li>
+            <li>{delete}</li>
+          </ul>
+        </div>
+        ';
     /**
      * @inheritdoc
      */
@@ -28,11 +43,12 @@ class ActionColumn extends \yii\grid\ActionColumn {
                     'title'      => Yii::t('admin', 'View'),
                     'aria-label' => Yii::t('admin', 'View'),
                     'data-pjax'  => '0',
+                    'original-title'  => 'original-title',
                 ], $this->buttonOptions);
 
-                Html::addCssClass($options, 'btn btn-primary');
+                //Html::addCssClass($options, 'btn btn-primary');
 
-                return Html::a(Yii::t('admin', 'View'), [
+                return Html::a('<span class="glyphicon glyphicon-zoom-in"></span>&nbsp;'.Yii::t('admin', 'View'), [
                     'manage/view',
                     'entity' => $entity,
                     'id'     => $model->{$primaryKey},
@@ -47,9 +63,9 @@ class ActionColumn extends \yii\grid\ActionColumn {
                     'data-pjax'  => '0',
                 ], $this->buttonOptions);
 
-                Html::addCssClass($options, 'btn btn-warning');
+                //Html::addCssClass($options, 'btn btn-warning');
 
-                return Html::a(Yii::t('admin', 'Edit'), [
+                return Html::a("<span class=\"glyphicon glyphicon-edit\"></span>&nbsp;".Yii::t('admin', 'Edit'), [
                     'manage/update',
                     'entity' => $entity,
                     'id'     => $model->{$primaryKey},
@@ -68,9 +84,9 @@ class ActionColumn extends \yii\grid\ActionColumn {
                     ],
                 ], $this->buttonOptions);
 
-                Html::addCssClass($options, 'btn btn-danger');
+                //Html::addCssClass($options, 'btn btn-danger');
 
-                return Html::a(Yii::t('admin', 'Delete'), [
+                return Html::a("<i class='glyphicon glyphicon-remove'></i>&nbsp;".Yii::t('admin', 'Delete'), [
                     'manage/delete',
                     'entity' => $entity,
                     'id'     => $model->{$primaryKey},

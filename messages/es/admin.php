@@ -17,4 +17,7 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
+    "View" => "Mostrar",
+    "Edit" => "Editar",
+    "Delete" => "Borrar",
 ];

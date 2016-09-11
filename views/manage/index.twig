@@ -1,5 +1,16 @@
 {% extends "@admin-module/views/layouts/main.twig"%}
 
+{% block action_area %}
+    {{ buttonCreate|raw }}
+{% endblock action_area %}
+
 {% block page_body %}
-    page_body
+    <div class="wrapper wrapper-content animated fadeIn">
+        <div class="ibox">
+            <div class="ibox-content text-center css-animation-box">
+                {{ htmlGrid|raw }}
+            </div>
+        </div>
+    </div>
+    <div>&nbsp;</div>
 {% endblock page_body %}

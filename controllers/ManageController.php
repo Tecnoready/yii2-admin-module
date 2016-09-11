@@ -14,6 +14,9 @@ use yii\web\NotFoundHttpException;
 use asdfstudio\admin\base\Entity;
 use asdfstudio\admin\forms\Form;
 use yii\web\ForbiddenHttpException;
+use yii\helpers\Html;
+use asdfstudio\admin\grids\Grid;
+use asdfstudio\admin\components\AdminFormatter;
 
 /**
  * Class ManageController
@@ -84,9 +87,29 @@ class ManageController extends Controller {
                 Yii::$app->getRequest()->url => Yii::t("admin", sprintf("%s list",$entity->slug())),
             ]);
             
+            $grid = $entity->grid();
+
+            $class = ArrayHelper::remove($grid, 'class', Grid::className());
+            $filterModel = ArrayHelper::remove($grid, 'filterModel', null);
+            if ($filterModel !== null && method_exists($filterModel, 'search')) {
+                $modelsProvider = $filterModel->search(Yii::$app->request->queryParams);
+            }
+            $defaultGrid = [
+                'dataProvider' => $modelsProvider,
+                'filterModel' => $filterModel,
+                'formatter' => [
+                    'class' => AdminFormatter::className(),
+                ],
+            ];
+            $grid = ArrayHelper::merge($defaultGrid, $grid);
+            $htmlGrid = $class::widget($grid);
+            
+            $buttonCreate = Html::a(Yii::t('admin', 'Create'), ['create', 'entity' => $entity->id], ['class' => 'btn btn-success']);
             return $this->render('index.twig', [
                 'entity' => $entity,
                 'modelsProvider' => $modelsProvider,
+                'htmlGrid' => $htmlGrid,
+                'buttonCreate' => $buttonCreate,
             ]);
         } else {
             throw new ForbiddenHttpException(Yii::t('yii', 'You are not allowed to perform this action.'));
