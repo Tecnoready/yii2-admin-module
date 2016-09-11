@@ -17,16 +17,4 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'Add' => 'Добавить',
-    'Cancel' => 'Отмена',
-    'Are you sure you want to delete this item?' => 'Вы уверены, что хотите удалить этот объект?',
-    'Create' => 'Создать',
-    'Creating' => 'Создание',
-    'Dashboard' => 'Панель управления',
-    'Delete' => 'Удалить',
-    'Deleting' => 'Удаление',
-    'Edit' => 'Редактировать',
-    'Editing' => 'Редактирование',
-    'Save' => 'Сохранить',
-    'View' => 'Просмотр',
 ];

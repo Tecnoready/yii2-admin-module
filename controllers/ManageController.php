@@ -81,7 +81,7 @@ class ManageController extends Controller {
                 'query' => $query
             ]);
             Yii::$container->get("common.manager.breadcrumb")->breadcrumb([
-                Yii::$app->getRequest()->url => sprintf("%s list",$entity->slug()),
+                Yii::$app->getRequest()->url => Yii::t("admin", sprintf("%s list",$entity->slug())),
             ]);
             
             return $this->render('index.twig', [

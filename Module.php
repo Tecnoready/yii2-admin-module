@@ -217,9 +217,11 @@ class Module extends \yii\base\Module implements BootstrapInterface {
         $i18n = Yii::$app->i18n;
 
         $i18n->translations['admin'] = [
-            'class'          => 'yii\i18n\PhpMessageSource',
-            'sourceLanguage' => 'en',
-            'basePath'       => '@vendor/sgdot/yii2-admin-module/messages',
+            'class'          => 'asdfstudio\admin\i18n\PhpFilesMessageSource',
+//            'fileMap' => [
+//                'admin' => 'admin.php',
+//            ],
+            'basePath'       => '@vendor/tecnoready/yii2-admin-module/messages',
         ];
     }
 
