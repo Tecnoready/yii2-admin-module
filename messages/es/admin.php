@@ -23,5 +23,6 @@ return [
     "label.actions" => "Acciones",
     "button.add_new" => "Agregar nuevo",
     "label.editing" => 'Editando "{0}"',
-    "button.save" => "Actualizar"
+    "button.save" => "Actualizar",
+    "button.logout" => "Cerrar sesión",
 ];

@@ -183,6 +183,7 @@ class ManageController extends Controller {
 
     public function actionUpdate() {
         if (method_exists($this->entity, 'canUpdate') && $this->entity->canUpdate()) {
+            
             /* @var Form $form */
             $form = Yii::createObject(ArrayHelper::merge([
                 'model' => $this->model,
@@ -198,7 +199,6 @@ class ManageController extends Controller {
             ])->breadcrumb([
                 Yii::$app->getRequest()->url => Yii::t("admin",(string)$this->model),
             ]);
-            
             if (Yii::$app->getRequest()->getIsPost()) {
                 $form->load(Yii::$app->getRequest()->getBodyParams());
                 $form->runActions();
