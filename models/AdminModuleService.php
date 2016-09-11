@@ -17,6 +17,18 @@ namespace asdfstudio\admin\models;
  * @author Carlos Mendoza <inhack20@gmail.com>
  */
 class AdminModuleService {
+    
+    /**
+     * @return \asdfstudio\admin\Module
+     */
+    public function getImageProfileUser()
+    {
+        $imageProfileUser = \Yii::$app->getModule('admin')->imageProfileUser;
+        if($imageProfileUser instanceof \Closure){
+            $imageProfileUser = $imageProfileUser();
+        }
+        return $imageProfileUser;
+    }
     public function renderSideBar() {
         return \Yii::$container->get("admin.builder.menu_sidebar")->render();
     }

@@ -21,6 +21,12 @@
                         <ul class="nav metismenu" id="side-menu">
                             <li class="nav-header">
                                 <div class="dropdown profile-element">
+                                    {% set imageProfileUser = adminModuleService.getImageProfileUser() %}
+                                    {% if imageProfileUser is not null %}
+                                        <span>
+                                            <img alt="image" class="img-circle" style="width: 50px;height: 50px;" src="{{ imageProfileUser }}">
+                                        </span>
+                                    {% endif %}
                                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                         <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{ app.user.identity }}</strong>
                                             </span> <span class="text-muted text-xs block">Administrador <b class="caret"></b></span> </span> </a>

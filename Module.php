@@ -89,7 +89,13 @@ class Module extends \yii\base\Module implements BootstrapInterface {
      * @var Menu
      */
     public $sidebar;
-
+    
+    /**
+     * Imagen del perfil del usuario
+     * @var string|Closure
+     */
+    public $imageProfileUser = null;
+    
     /**
      * @inheritdoc
      */
