@@ -7,7 +7,7 @@
     
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-sm-4">
-            <h2>{{ this.title }}</h2>
+            <h2>{% block title_area %}{{ this.title }}{% endblock %}</h2>
             {{ breadcrumb_render() }}
         </div>
         <div class="col-sm-8">

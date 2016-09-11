@@ -1,0 +1,41 @@
+{% extends "@admin-module/views/layouts/main.twig"%}
+
+{% block title_area %}
+    {{ "label.editing"|trans([model],"admin") }}
+{% endblock %}
+
+{% block action_area %}
+    <div class="btn-group">
+        <button type="button" class="btn btn-link btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{ "label.actions"|trans({},"admin") }} <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+            {% for button in buttonsTop %}
+                <li>{{ button|raw }}</li>
+                {% endfor %}
+        </ul>
+    </div>
+{% endblock action_area %}
+
+{% block page_body %}
+    <div class="wrapper wrapper-content animated fadeIn model-update">
+        <div class="row">
+            <div class="col-md-12 white-bg">
+                <h3>{{ entity.slug|trans({},"admin") }}</h3>
+                {{
+                    this.render(form.viewFile ? form.viewFile : '_form.twig',{
+                        'model' : model,
+                        'entity' : entity,
+                        'form' : form,
+                    })|raw
+                }}
+            </div>
+        </div>
+    </div>
+    <div class="well well-small form-actions">
+        {% for button in buttonsEntity %}
+            {{ button|raw }}
+        {% endfor %}
+    </div>
+    
+{% endblock page_body %}

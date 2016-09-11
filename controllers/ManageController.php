@@ -126,11 +126,11 @@ class ManageController extends Controller {
                 'manage/index',
                 'entity' => $entity->slug(),
             ]);
-            Yii::$container->get("common.manager.breadcrumb")->breadcrumb([
+            $breadcrumb = Yii::$container->get("common.manager.breadcrumb");
+            $breadcrumb->breadcrumb([
                 $url => Yii::t("admin", sprintf("%s list",$entity->slug())),
             ]);
-            
-            Yii::$container->get("common.manager.breadcrumb")->breadcrumb([
+            $breadcrumb->breadcrumb([
                 Yii::$app->getRequest()->url => Yii::t("admin",(string)$this->model),
             ]);
             
@@ -187,7 +187,18 @@ class ManageController extends Controller {
             $form = Yii::createObject(ArrayHelper::merge([
                 'model' => $this->model,
             ], $this->entity->form()));
-
+            $entity = $this->entity;
+            $url = \yii\helpers\Url::to([
+                'manage/index',
+                'entity' => $entity->slug(),
+            ]);
+            $breadcrumb = Yii::$container->get("common.manager.breadcrumb");
+            $breadcrumb->breadcrumb([
+                $url => Yii::t("admin", sprintf("%s list",$entity->slug())),
+            ])->breadcrumb([
+                Yii::$app->getRequest()->url => Yii::t("admin",(string)$this->model),
+            ]);
+            
             if (Yii::$app->getRequest()->getIsPost()) {
                 $form->load(Yii::$app->getRequest()->getBodyParams());
                 $form->runActions();
@@ -206,10 +217,21 @@ class ManageController extends Controller {
                     }
                 }
             }
-            return $this->render('update', [
+            $buttons = [];
+            $actions = $form->actions();
+            foreach($actions as $name => $action){
+                if (isset($action['visible']) && !$action['visible']) continue;
+                $buttons[]= html_entity_decode($action['class']::widget(array_merge($action, ['name' => $name])));
+            }
+            $actionColumn = new \asdfstudio\admin\grids\ActionColumn();
+            $buttonsTop = [];
+            $buttonsTop[] = $actionColumn->buttons["view"](null,$this->model,null);
+            return $this->render('update.twig', [
                 'entity' => $this->entity,
                 'model' => $this->model,
                 'form' => $form,
+                'buttonsEntity' => $buttons,
+                'buttonsTop' => $buttonsTop,
             ]);
         } else {
             throw new ForbiddenHttpException(Yii::t('yii', 'You are not allowed to perform this action.'));

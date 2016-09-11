@@ -97,7 +97,7 @@ class Form extends Model
         return [
             'save' => [
                 'class' => Button::className(),
-                'label' => Yii::t('admin', 'Save'),
+                'label' => "<i class=\"fa fa-save\"></i>&nbsp;".Yii::t('admin', 'button.save'),
                 'options' => [
                     'class' => 'btn btn-success'
                 ],

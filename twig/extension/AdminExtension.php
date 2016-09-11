@@ -11,6 +11,8 @@
 
 namespace asdfstudio\admin\twig\extension;
 
+use Twig_SimpleFunction;
+
 /**
  * Extension del administrador
  *
@@ -18,11 +20,22 @@ namespace asdfstudio\admin\twig\extension;
  */
 class AdminExtension extends \Twig_Extension implements \Twig_Extension_GlobalsInterface
 {
+    public function getFunctions() {
+        return [
+            new Twig_SimpleFunction('unset',array($this,"unsetVar")),
+        ];
+    }
+    
     public function getGlobals() {
         return [
             "adminModuleService" => \Yii::$container->get("admin.module_service"),
         ];
     }
+    
+    public function unsetVar(array $array,$key) {
+        unset($array[$key]);
+    }
+    
     public function getName() {
         return "yii2_admin";
     }

@@ -22,4 +22,6 @@ return [
     "button.delete" => "Borrar",
     "label.actions" => "Acciones",
     "button.add_new" => "Agregar nuevo",
+    "label.editing" => 'Editando "{0}"',
+    "button.save" => "Actualizar"
 ];

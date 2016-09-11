@@ -1,0 +1,25 @@
+{% set fields = form.fields() %}
+{% set actions = form.actions() %}
+<div class="model-form row">
+    {% set htmlForm = active_form_begin({
+        'options' : form.options,
+    }) %}
+    <div class="col-md-10">
+        {% for attribute,field in fields %}
+            {% set visible = true %}
+            {% if field == false or (field['visible'] is defined and field['visible'] == false) %}
+                {% set visible = false %}
+            {% endif %}
+            {% if visible %}
+                {% set options = {} %}
+                {% if field['fieldOptions'] is defined %}
+                    {% set options = field['fieldOptions'] %}
+                    {{ unset(field,'fieldOptions')}}
+                {% endif %}
+                {{ htmlForm.field(model, attribute, options).widget(field['class'], field)|raw }}
+            {% endif %}
+        {% endfor %}
+        {# Render fields #}
+    </div>
+    {{ active_form_end() }}
+</div>
