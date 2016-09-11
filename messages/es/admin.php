@@ -17,7 +17,9 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    "View" => "Mostrar",
-    "Edit" => "Editar",
-    "Delete" => "Borrar",
+    "button.view" => "Mostrar",
+    "button.edit" => "Editar",
+    "button.delete" => "Borrar",
+    "label.actions" => "Acciones",
+    "button.add_new" => "Agregar nuevo",
 ];

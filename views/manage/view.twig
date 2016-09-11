@@ -1,0 +1,15 @@
+{% extends "@admin-module/views/layouts/main.twig"%}
+
+{% block action_area %}
+    {% for button in buttons %}
+      {{ button|raw }}
+  {% endfor %}
+{% endblock action_area %}
+
+{% block page_body %}
+    <div class="wrapper wrapper-content animated fadeIn">
+        <div class="ibox float-e-margins">
+                {{ content|raw }}
+        </div>
+    </div>
+{% endblock page_body %}

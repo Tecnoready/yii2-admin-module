@@ -1,7 +1,16 @@
 {% extends "@admin-module/views/layouts/main.twig"%}
 
 {% block action_area %}
-    {{ buttonCreate|raw }}
+    <div class="btn-group">
+        <button type="button" class="btn btn-link btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{ "label.actions"|trans({},"admin") }} <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+          {% for button in buttons %}
+              <li>{{ button|raw }}</li>
+          {% endfor %}
+        </ul>
+      </div>
 {% endblock action_area %}
 
 {% block page_body %}
@@ -10,5 +19,4 @@
                 {{ htmlGrid|raw }}
         </div>
     </div>
-    <div>&nbsp;</div>
 {% endblock page_body %}

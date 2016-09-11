@@ -17,6 +17,7 @@ use yii\web\ForbiddenHttpException;
 use yii\helpers\Html;
 use asdfstudio\admin\grids\Grid;
 use asdfstudio\admin\components\AdminFormatter;
+use yii\widgets\DetailView;
 
 /**
  * Class ManageController
@@ -104,12 +105,14 @@ class ManageController extends Controller {
             $grid = ArrayHelper::merge($defaultGrid, $grid);
             $htmlGrid = $class::widget($grid);
             
-            $buttonCreate = Html::a(Yii::t('admin', 'Create'), ['create', 'entity' => $entity->id], ['class' => 'btn btn-success']);
+            $buttons = [
+                Html::a("<i class='fa fa-plus-circle'></i>&nbsp;".Yii::t('admin', 'button.add_new'), ['create', 'entity' => $entity->id], ['class' => ''])
+            ];
             return $this->render('index.twig', [
                 'entity' => $entity,
                 'modelsProvider' => $modelsProvider,
                 'htmlGrid' => $htmlGrid,
-                'buttonCreate' => $buttonCreate,
+                'buttons' => $buttons,
             ]);
         } else {
             throw new ForbiddenHttpException(Yii::t('yii', 'You are not allowed to perform this action.'));
@@ -118,9 +121,60 @@ class ManageController extends Controller {
 
     public function actionView() {
         if (method_exists($this->entity, 'canRead') && $this->entity->canRead()) {
-            return $this->render('view', [
-                'entity' => $this->entity,
-                'model' => $this->model,
+            $entity = $this->entity;
+            $url = \yii\helpers\Url::to([
+                'manage/index',
+                'entity' => $entity->slug(),
+            ]);
+            Yii::$container->get("common.manager.breadcrumb")->breadcrumb([
+                $url => Yii::t("admin", sprintf("%s list",$entity->slug())),
+            ]);
+            
+            Yii::$container->get("common.manager.breadcrumb")->breadcrumb([
+                Yii::$app->getRequest()->url => Yii::t("admin",(string)$this->model),
+            ]);
+            
+            $showMapper = new \asdfstudio\admin\models\mapper\ShowMapper();
+            $model = $this->model;
+            $detail = $entity->detail();
+            $entity->configureShowFields($showMapper);
+            $class = ArrayHelper::remove($detail, 'class', DetailView::className());
+            $defaultDetail = [
+                'model' => $model,
+                'formatter' => [
+                    'class' => AdminFormatter::className(),
+                ],
+            ];
+            $listFields = $showMapper->getList();
+            if(count($listFields) > 0){
+                $attributes = [];
+                foreach ($listFields as $field => $parameters) {
+                    if(count($parameters) == 0){
+                        $attributes[] = $field;
+                    }else{
+                        $attributes[$field] = $parameters;
+                    }
+                }
+                $defaultDetail["attributes"] = $attributes;
+            }
+            
+            $detail = ArrayHelper::merge($defaultDetail, $detail);
+            $primaryKey = $entity->primaryKey();
+            
+            $buttons = [];
+            $buttons []= Html::a("<i class=\"glyphicon glyphicon-edit\"></i>&nbsp;".Yii::t('admin', 'button.edit'), ['update', 'entity' => $entity->id, 'id' => $model->{$primaryKey}], ['class' => 'btn btn-primary btn-sm']);
+            $buttons []= Html::a("<i class='glyphicon glyphicon-remove'></i>&nbsp;".Yii::t('admin', 'button.delete'), ['delete', 'entity' => $entity->id, 'id' => $model->{$primaryKey}], [
+                'class' => 'btn btn-danger btn-sm',
+                'data' => [
+                    'confirm' => Yii::t('admin', 'Are you sure you want to delete this item?'),
+                    'method' => 'post',
+                ],
+            ]);
+            
+            $content = $class::widget($detail);
+            return $this->render('view.twig', [
+                'buttons' => $buttons,
+                'content' => $content,
             ]);
         } else {
             throw new ForbiddenHttpException(Yii::t('yii', 'You are not allowed to perform this action.'));

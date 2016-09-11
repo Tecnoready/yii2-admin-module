@@ -16,8 +16,8 @@ class ActionColumn extends \yii\grid\ActionColumn {
 
     public $template = '
         <div class="btn-group">
-          <button type="button" class="btn btn-default">{view}</button>
-          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <button type="button" class="btn btn-default btn-sm">{view}</button>
+          <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span class="caret"></span>
             <span class="sr-only">Toggle Dropdown</span>
           </button>
@@ -48,7 +48,7 @@ class ActionColumn extends \yii\grid\ActionColumn {
 
                 //Html::addCssClass($options, 'btn btn-primary');
 
-                return Html::a('<span class="glyphicon glyphicon-zoom-in"></span>&nbsp;'.Yii::t('admin', 'View'), [
+                return Html::a('<i class="glyphicon glyphicon-zoom-in"></i>&nbsp;'.Yii::t('admin', 'button.view'), [
                     'manage/view',
                     'entity' => $entity,
                     'id'     => $model->{$primaryKey},
@@ -65,7 +65,7 @@ class ActionColumn extends \yii\grid\ActionColumn {
 
                 //Html::addCssClass($options, 'btn btn-warning');
 
-                return Html::a("<span class=\"glyphicon glyphicon-edit\"></span>&nbsp;".Yii::t('admin', 'Edit'), [
+                return Html::a("<i class=\"glyphicon glyphicon-edit\"></i>&nbsp;".Yii::t('admin', 'button.edit'), [
                     'manage/update',
                     'entity' => $entity,
                     'id'     => $model->{$primaryKey},
@@ -86,7 +86,7 @@ class ActionColumn extends \yii\grid\ActionColumn {
 
                 //Html::addCssClass($options, 'btn btn-danger');
 
-                return Html::a("<i class='glyphicon glyphicon-remove'></i>&nbsp;".Yii::t('admin', 'Delete'), [
+                return Html::a("<i class='glyphicon glyphicon-remove'></i>&nbsp;".Yii::t('admin', 'button.delete'), [
                     'manage/delete',
                     'entity' => $entity,
                     'id'     => $model->{$primaryKey},

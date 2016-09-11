@@ -90,4 +90,8 @@ class Grid extends GridView {
         $pager['options'] = ['class' => 'pagination pull-right'];
         return $class::widget($pager);
     }
+    
+    public function configureShowFields(\asdfstudio\admin\models\mapper\ShowMapper $show) {
+        
+    }
 }
