@@ -82,7 +82,10 @@ class ManageController extends Controller {
             }
 
             $modelsProvider = new ActiveDataProvider([
-                'query' => $query
+                'query' => $query,
+                'sort' => [
+                    "defaultOrder" => [$entity->primaryKey() => SORT_DESC]
+                ]
             ]);
             Yii::$container->get("common.manager.breadcrumb")->breadcrumb([
                 Yii::$app->getRequest()->url => Yii::t("admin", sprintf("%s list",$entity->slug())),
