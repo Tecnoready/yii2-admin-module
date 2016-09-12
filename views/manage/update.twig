@@ -1,7 +1,7 @@
 {% extends "@admin-module/views/layouts/main.twig"%}
 
 {% block title_area %}
-    {{ "label.editing"|trans([model],"admin") }}
+    {{ "label.editing"|trans([model],"admin") }} "{{ model|truncate(15) }}"
 {% endblock %}
 
 {% block page_body %}
