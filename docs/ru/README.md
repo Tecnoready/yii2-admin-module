@@ -34,10 +34,10 @@ return [
 ###Регистрация моделей
 
 Теперь нужно зарегистрировать первую модель в панели управления. Создайте класс `UserEntity` в своей папке `admin/entities`.
-Класс должен наследовать `asdfstudio\admin\base\Entity`.
+Класс должен наследовать `asdfstudio\admin\base\Admin`.
 
 ```php
-use asdfstudio\admin\base\Entity;
+use asdfstudio\admin\base\Admin;
 use common\models\User;
 
 class UserEntity extends Entity

@@ -32,7 +32,7 @@ return [
     "label.editing" => 'Editando',
     "button.save" => "Actualizar",
     "button.logout" => "Cerrar sesión",
-    "flash.update.success" => "Elemento {0} '{1}' fue actualizado satisfactoriamente.",
+    "flash.update.success" => "El elemento {0} '{1}' fue actualizado satisfactoriamente.",
     "flash.update.error" => "Elemento {0} '{1}' se no se pudo actualizarse.",
     "flash.create.success" => "Elemento {0} '{1}' creado satisfactoriamente.",
     "flash.create.error" => "Ocurrio un error al crear el elemento {0}",

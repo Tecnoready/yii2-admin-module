@@ -11,7 +11,7 @@ use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
 use yii\web\BadRequestHttpException;
 use yii\web\NotFoundHttpException;
-use asdfstudio\admin\base\Entity;
+use asdfstudio\admin\base\Admin;
 use asdfstudio\admin\forms\Form;
 use yii\web\ForbiddenHttpException;
 use yii\helpers\Html;
@@ -25,7 +25,7 @@ use yii\widgets\DetailView;
  * @property ActiveRecord $model
  */
 class ManageController extends Controller {
-    /* @var Entity */
+    /* @var Admin */
 
     public $entity;
     /* @var ActiveRecord */
@@ -200,7 +200,7 @@ class ManageController extends Controller {
                 if ($form->model->validate()) {
                     if ($form->model->save()) {
                         $form->afterSave();
-                        $this->module->trigger(Entity::EVENT_UPDATE_SUCCESS, new Event([
+                        $this->module->trigger(Admin::EVENT_UPDATE_SUCCESS, new Event([
                             'sender' => $form->model,
                         ]));
                         $this->addAlertMessage(self::ALERT_TYPE_SUCCESS,"flash.update.success",[mb_strtolower($this->trans($this->entity->slug())),$form->model]);
@@ -209,7 +209,7 @@ class ManageController extends Controller {
                         }
                     } else {
                         $form->afterFail();
-                        $this->module->trigger(Entity::EVENT_UPDATE_FAIL, new Event([
+                        $this->module->trigger(Admin::EVENT_UPDATE_FAIL, new Event([
                             'sender' => $form->model,
                         ]));
                         $this->addAlertMessage(self::ALERT_TYPE_DANGER,"flash.update.error",[mb_strtolower($this->trans($this->entity->slug())),$form->model]);
@@ -245,12 +245,12 @@ class ManageController extends Controller {
                     $this->addAlertMessage(self::ALERT_TYPE_SUCCESS,"flash.delete.success",[mb_strtolower($this->trans($this->entity->slug())),$this->model]);
                     
                     
-                    $this->module->trigger(Entity::EVENT_DELETE_SUCCESS, new Event([
+                    $this->module->trigger(Admin::EVENT_DELETE_SUCCESS, new Event([
                         'sender' => $this->model,
                     ]));
                 } else {
                     $this->addAlertMessage(self::ALERT_TYPE_DANGER,"flash.delete.error",[mb_strtolower($this->trans($this->entity->slug())),$this->model]);
-                    $this->module->trigger(Entity::EVENT_DELETE_FAIL, new Event([
+                    $this->module->trigger(Admin::EVENT_DELETE_FAIL, new Event([
                         'sender' => $this->model,
                     ]));
                 }
@@ -296,7 +296,7 @@ class ManageController extends Controller {
                 if ($form->model->validate()) {
                     if ($form->model->save()) {
                         $form->afterSave();
-                        $this->module->trigger(Entity::EVENT_CREATE_SUCCESS, new Event([
+                        $this->module->trigger(Admin::EVENT_CREATE_SUCCESS, new Event([
                             'sender' => $form->model,
                         ]));
                         $this->addAlertMessage(self::ALERT_TYPE_SUCCESS,"flash.create.success",[mb_strtolower($this->trans($this->entity->slug())),$form->model]);
@@ -313,7 +313,7 @@ class ManageController extends Controller {
                         
                         $this->addAlertMessage(self::ALERT_TYPE_DANGER,"flash.create.error",[mb_strtolower($this->trans($this->entity->slug()))]);
                         
-                        $this->module->trigger(Entity::EVENT_CREATE_FAIL, new Event([
+                        $this->module->trigger(Admin::EVENT_CREATE_FAIL, new Event([
                             'sender' => $form->model,
                         ]));
                     }
@@ -361,7 +361,7 @@ class ManageController extends Controller {
 
     /**
      * Load model
-     * @param Entity $entity
+     * @param Admin $entity
      * @param string|integer $id
      * @return ActiveRecord mixed
      */

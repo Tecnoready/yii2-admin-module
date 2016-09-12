@@ -2,7 +2,7 @@
 
 namespace asdfstudio\admin\controllers;
 
-use asdfstudio\admin\base\Entity;
+use asdfstudio\admin\base\Admin;
 use asdfstudio\admin\Module;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
@@ -36,8 +36,8 @@ abstract class Controller extends WebController {
 
     /**
      * Load registered item
-     * @param string $entity Entity name
-     * @return Entity
+     * @param string $entity Admin name
+     * @return Admin
      */
     public function getEntity($entity) {
         if (isset($this->module->entities[$entity])) {

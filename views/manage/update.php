@@ -3,7 +3,7 @@
 /**
  * @var yii\web\View $this
  * @var yii\db\ActiveRecord $model
- * @var asdfstudio\admin\base\Entity $entity
+ * @var asdfstudio\admin\base\Admin $entity
  * @var \asdfstudio\admin\forms\Form $form
  */
 

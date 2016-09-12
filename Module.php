@@ -2,7 +2,7 @@
 
 namespace asdfstudio\admin;
 
-use asdfstudio\admin\base\Entity;
+use asdfstudio\admin\base\Admin;
 use asdfstudio\admin\models\menu\Menu;
 use Yii;
 use yii\base\BootstrapInterface;
@@ -149,7 +149,7 @@ class Module extends \yii\base\Module implements BootstrapInterface {
     /**
      * Register model in admin dashboard
      *
-     * @param string|Entity $entity
+     * @param string|Admin $entity
      * @param bool          $forceRegister
      *
      * @throws \yii\base\InvalidConfigException
@@ -181,7 +181,7 @@ class Module extends \yii\base\Module implements BootstrapInterface {
     /**
      * Register model in admin dashboard
      *
-     * @param string|Entity $entity
+     * @param string|Admin $entity
      * @param bool          $forceRegister
      *
      * @throws \yii\base\InvalidConfigException
