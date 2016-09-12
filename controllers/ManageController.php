@@ -209,18 +209,18 @@ class ManageController extends Controller {
                     }
                 }
             }
-            $buttons = [];
+            $buttonsEntity = [];
             $actions = $form->actions();
             foreach($actions as $name => $action){
                 if (isset($action['visible']) && !$action['visible']) continue;
-                $buttons[]= html_entity_decode($action['class']::widget(array_merge($action, ['name' => $name])));
+                $buttonsEntity[]= html_entity_decode($action['class']::widget(array_merge($action, ['name' => $name])));
             }
             $buttonsTop = $this->buildButtons(["view","index","create"], $entity);
             return $this->render('update.twig', [
                 'entity' => $this->entity,
                 'model' => $this->model,
                 'form' => $form,
-                'buttonsEntity' => $buttons,
+                'buttonsEntity' => $buttonsEntity,
                 'buttonsTop' => $buttonsTop,
             ]);
         } else {
@@ -285,11 +285,19 @@ class ManageController extends Controller {
                     }
                 }
             }
-
+            $buttonsEntity = [];
+            $actions = $form->actions();
+            foreach($actions as $name => $action){
+                if (isset($action['visible']) && !$action['visible']) continue;
+                $buttonsEntity[]= html_entity_decode($action['class']::widget(array_merge($action, ['name' => $name])));
+            }
+            $buttonsTop = $this->buildButtons(["index","create"], $this->entity);
             return $this->render('create.twig', [
                 'entity' => $this->entity,
                 'model' => $model,
                 'form' => $form,
+                'buttonsEntity' => $buttonsEntity,
+                'buttonsTop' => $buttonsTop,
             ]);
         } else {
             throw new ForbiddenHttpException(Yii::t('yii', 'You are not allowed to perform this action.'));

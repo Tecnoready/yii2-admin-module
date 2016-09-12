@@ -1,7 +1,7 @@
 {% extends "@admin-module/views/layouts/main.twig"%}
 
 {% block title_area %}
-    {{ "label.editing"|trans([model],"admin") }}
+    {{ "label.add_new"|trans([entity.slug|trans({},"admin")|lower],"admin") }}
 {% endblock %}
 
 {% block page_body %}
@@ -14,6 +14,7 @@
                         'entity' : entity,
                         'form' : form,
                         'buttonsEntity' : buttonsEntity,
+                        'mode': 'create'
                     })|raw
                 }}
             </div>
