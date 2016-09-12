@@ -209,11 +209,14 @@ class ManageController extends Controller {
                         $this->module->trigger(Entity::EVENT_UPDATE_SUCCESS, new Event([
                             'sender' => $form->model,
                         ]));
+                        $this->addAlertMessage(self::ALERT_TYPE_SUCCESS,"flash.update.success",[strtolower($this->trans($this->entity->slug())),$form->model]);
+                        return $this->redirect($url);
                     } else {
                         $form->afterFail();
                         $this->module->trigger(Entity::EVENT_UPDATE_FAIL, new Event([
                             'sender' => $form->model,
                         ]));
+                        $this->addAlertMessage(self::ALERT_TYPE_DANGER,"flash.update.error",[strtolower($this->trans($this->entity->slug())),$form->model]);
                     }
                 }
             }
@@ -350,5 +353,4 @@ class ManageController extends Controller {
         $this->_model = $query->one();
         return $this->_model;
     }
-
 }

@@ -15,6 +15,11 @@ use yii\web\Controller as WebController;
  */
 abstract class Controller extends WebController {
 
+    const ALERT_TYPE_SUCCESS = "alert_success";
+    const ALERT_TYPE_INFO = "alert_info";
+    const ALERT_TYPE_WARNING = "alert_warning";
+    const ALERT_TYPE_DANGER = "alert_danger";
+    
 //    public $layout = 'main'; 
     public $layout = false; 
 
@@ -42,5 +47,19 @@ abstract class Controller extends WebController {
         }
         return null;
     }
-
+    
+    /**
+     * 
+     * @param type $id
+     * @param array $parameters
+     * @param type $type self::ALERT_TYPE_*
+     */
+    protected function addAlertMessage($type,$id,array $parameters = []) {
+        $alert = $this->trans($id,$parameters);
+        \Yii::$app->session->addFlash($type, $alert);
+    }
+    
+    protected function trans($id,array $parameters = [],$domain = "admin") {
+        return \Yii::t($domain, $id,$parameters);
+    }
 }

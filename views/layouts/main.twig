@@ -16,5 +16,29 @@
             </div>
         </div>
     </div>
+    {% set flashes = app.session.getAllFlashes(false) %}
+    {% if flashes|length > 0 %}
+        <br/>
+        {% for type,flash in flashes %}
+            {% set class = "" %}
+            {% if type == constant('asdfstudio\\admin\\controllers\\Controller::ALERT_TYPE_SUCCESS') %}
+                {% set class = "success" %}
+            {% elseif type == constant('asdfstudio\\admin\\controllers\\Controller::ALERT_TYPE_INFO') %}
+                {% set class = "info" %}
+            {% elseif type == constant('asdfstudio\\admin\\controllers\\Controller::ALERT_TYPE_WARNING') %}
+                {% set class = "warning" %}
+            {% elseif type == constant('asdfstudio\\admin\\controllers\\Controller::ALERT_TYPE_DANGER') %}
+                {% set class = "danger" %}
+            {% endif %}
+            {% for f,k in flash %}
+                
+                <div class="alert alert-{{ class }} alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <strong>{{ ("alert." ~ class)|trans({},"admin") }}!</strong> {{ k }}
+                </div>
+            {% endfor  %}
+        {% endfor  %}
+    {% endif %}
+    
 {% endblock pre_body %}
 

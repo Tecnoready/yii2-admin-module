@@ -27,15 +27,11 @@
                         'model' : model,
                         'entity' : entity,
                         'form' : form,
+                        'buttonsEntity' : buttonsEntity,
                     })|raw
                 }}
             </div>
         </div>
-    </div>
-    <div class="well well-small form-actions">
-        {% for button in buttonsEntity %}
-            {{ button|raw }}
-        {% endfor %}
     </div>
     
 {% endblock page_body %}

@@ -25,4 +25,10 @@ return [
     "label.editing" => 'Editando "{0}"',
     "button.save" => "Actualizar",
     "button.logout" => "Cerrar sesión",
+    "flash.update.success" => "El {0} '{1}' se actualizo correctamente.",
+    "flash.update.error" => "El {0} '{1}' se no se pudo actualizar.",
+    "alert.success" => "Bien",
+    "alert.info" => "Información",
+    "alert.warning" => "Cuidado",
+    "alert.danger" => "Ha ocurrido un error",
 ];
