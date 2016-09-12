@@ -123,7 +123,8 @@ class MenuSidebarBuilder {
         $subMenu->addChild('Symfony2', array('uri' => 'http://symfony-reloaded.org/'));
         */
         $renderer = new TwigRenderer($environment, $template, $matcher, [
-            "currentClass" => "active"
+            "currentClass" => "active",
+            "ancestorClass" => "active",
         ]);
 //        var_dump(file_exists("/Users/inhack20/www/freelance/btobrewards/vendor/knplabs/knp-menu/src/Knp/Menu/Resources/views/knp_menu.html.twig"));
 //        die;
