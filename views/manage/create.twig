@@ -4,19 +4,6 @@
     {{ "label.editing"|trans([model],"admin") }}
 {% endblock %}
 
-{% block action_area %}
-    <div class="btn-group">
-        <button type="button" class="btn btn-link btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            {{ "label.actions"|trans({},"admin") }} <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu">
-            {% for button in buttonsTop %}
-                <li>{{ button|raw }}</li>
-                {% endfor %}
-        </ul>
-    </div>
-{% endblock action_area %}
-
 {% block page_body %}
     <div class="wrapper wrapper-content animated fadeIn model-update">
         <div class="row">

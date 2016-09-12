@@ -105,14 +105,12 @@ class ManageController extends Controller {
             $grid = ArrayHelper::merge($defaultGrid, $grid);
             $htmlGrid = $class::widget($grid);
             
-            $buttons = [
-                Html::a("<i class='fa fa-plus-circle'></i>&nbsp;".Yii::t('admin', 'button.add_new'), ['create', 'entity' => $entity->id], ['class' => ''])
-            ];
+            $buttonsTop = $this->buildButtons(["create"],$entity);
             return $this->render('index.twig', [
                 'entity' => $entity,
                 'modelsProvider' => $modelsProvider,
                 'htmlGrid' => $htmlGrid,
-                'buttons' => $buttons,
+                'buttonsTop' => $buttonsTop,
             ]);
         } else {
             throw new ForbiddenHttpException(Yii::t('yii', 'You are not allowed to perform this action.'));
@@ -161,19 +159,12 @@ class ManageController extends Controller {
             $detail = ArrayHelper::merge($defaultDetail, $detail);
             $primaryKey = $entity->primaryKey();
             
-            $buttons = [];
-            $buttons []= Html::a("<i class=\"glyphicon glyphicon-edit\"></i>&nbsp;".Yii::t('admin', 'button.edit'), ['update', 'entity' => $entity->id, 'id' => $model->{$primaryKey}], ['class' => 'btn btn-primary btn-sm']);
-            $buttons []= Html::a("<i class='glyphicon glyphicon-remove'></i>&nbsp;".Yii::t('admin', 'button.delete'), ['delete', 'entity' => $entity->id, 'id' => $model->{$primaryKey}], [
-                'class' => 'btn btn-danger btn-sm',
-                'data' => [
-                    'confirm' => Yii::t('admin', 'Are you sure you want to delete this item?'),
-                    'method' => 'post',
-                ],
-            ]);
+            
+            $buttonsTop = $this->buildButtons(["index","create","edit","delete"],$entity);
             
             $content = $class::widget($detail);
             return $this->render('view.twig', [
-                'buttons' => $buttons,
+                'buttonsTop' => $buttonsTop,
                 'content' => $content,
             ]);
         } else {
@@ -226,11 +217,7 @@ class ManageController extends Controller {
                 if (isset($action['visible']) && !$action['visible']) continue;
                 $buttons[]= html_entity_decode($action['class']::widget(array_merge($action, ['name' => $name])));
             }
-            $actionColumn = new \asdfstudio\admin\grids\ActionColumn();
-            $buttonsTop = [];
-            $buttonsTop[] = $actionColumn->buttons["view"](null,$this->model,null);
-            $buttonsTop[] = Html::a('<i class="fa fa-list"></i>&nbsp;'.Yii::t('admin', 'button.return_to_index'), $url);
-            $buttonsTop[] = Html::a("<i class='fa fa-plus-circle'></i>&nbsp;".Yii::t('admin', 'button.add_new'), ['create', 'entity' => $entity->id], ['class' => '']);
+            $buttonsTop = $this->buildButtons(["view","index","create"], $entity);
             return $this->render('update.twig', [
                 'entity' => $this->entity,
                 'model' => $this->model,
@@ -354,5 +341,43 @@ class ManageController extends Controller {
 
         $this->_model = $query->one();
         return $this->_model;
+    }
+    
+    /**
+     * Construye botones
+     * @param array $names
+     * @param type $entity
+     * @return type
+     */
+    private function buildButtons(array $names,$entity) {
+        $buttons = [];
+        $primaryKey = $entity->primaryKey();
+        if(in_array("view",$names)){
+            $actionColumn = new \asdfstudio\admin\grids\ActionColumn();
+            $buttons[] = $actionColumn->buttons["view"](null,$this->model,null);
+        }
+        if(in_array("create",$names)){
+            $buttons[] = Html::a("<i class='fa fa-plus-circle'></i>&nbsp;".Yii::t('admin', 'button.add_new'), ['create', 'entity' => $entity->id], ['class' => '']);
+        }
+        if(in_array("edit",$names)){
+            $buttons []= Html::a("<i class=\"glyphicon glyphicon-edit\"></i>&nbsp;".Yii::t('admin', 'button.edit'), ['update', 'entity' => $entity->id, 'id' => $this->model->{$primaryKey}], ['class' => '']);
+        }
+        if(in_array("delete",$names)){
+            $buttons []= Html::a("<i class='glyphicon glyphicon-remove'></i>&nbsp;".Yii::t('admin', 'button.delete'), ['delete', 'entity' => $entity->id, 'id' => $this->model->{$primaryKey}], [
+                'class' => '',
+                'data' => [
+                    'confirm' => Yii::t('admin', 'Are you sure you want to delete this item?'),
+                    'method' => 'post',
+                ],
+            ]);
+        }
+        if(in_array("index",$names)){
+            $url = \yii\helpers\Url::to([
+                'manage/index',
+                'entity' => $entity->slug(),
+            ]);
+            $buttons[] = Html::a('<i class="fa fa-list"></i>&nbsp;'.Yii::t('admin', 'button.return_to_index'), $url);
+        }
+        return $buttons;
     }
 }
