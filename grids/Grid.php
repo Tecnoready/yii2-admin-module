@@ -42,7 +42,7 @@ class Grid extends GridView {
             </div>
             <br/><br/>';
     
-    /**
+     /**
      * @inheritdoc
      */
     public function init() {
@@ -54,7 +54,7 @@ class Grid extends GridView {
         }
         parent::init();
     }
-
+    
     /**
      * List of grid columns
      *

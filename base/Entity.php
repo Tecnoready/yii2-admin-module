@@ -81,7 +81,9 @@ abstract class Entity extends Component {
      * @return string
      */
     public function slug() {
-        return Inflector::slug($this->model());
+        $model = $this->model();
+        $reflection = new \ReflectionClass($this->className());
+        return strtolower(str_replace("Admin","",$reflection->getShortName()));
     }
 
     /**
@@ -205,6 +207,10 @@ abstract class Entity extends Component {
         ];
     }
 
+    public function configureShowFields(\asdfstudio\admin\models\mapper\ShowMapper $show) {
+        
+    }
+    
     public function canRead() {
         return true;
     }

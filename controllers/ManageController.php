@@ -189,6 +189,7 @@ class ManageController extends Controller {
                 Yii::$app->getRequest()->url => Yii::t("admin",(string)$this->model),
             ]);
             if (Yii::$app->getRequest()->getIsPost()) {
+                
                 $form->load(Yii::$app->getRequest()->getBodyParams());
                 $form->runActions();
                 $form->beforeSave();
@@ -199,7 +200,7 @@ class ManageController extends Controller {
                             'sender' => $form->model,
                         ]));
                         $this->addAlertMessage(self::ALERT_TYPE_SUCCESS,"flash.update.success",[strtolower($this->trans($this->entity->slug())),$form->model]);
-                        if($this->getRequest()->post("update_and_list") !== null){
+                        if($this->getRequest()->post("update_and_edit") === null){
                             return $this->redirect($url);
                         }
                     } else {
@@ -289,13 +290,17 @@ class ManageController extends Controller {
                 $form->load(Yii::$app->getRequest()->getBodyParams());
                 $form->beforeSave();
                 if ($form->model->validate()) {
+                    var_dump($_POST);
+                    DIE;
                     if ($form->model->save()) {
                         $form->afterSave();
                         $this->module->trigger(Entity::EVENT_CREATE_SUCCESS, new Event([
                             'sender' => $form->model,
                         ]));
                         $this->addAlertMessage(self::ALERT_TYPE_SUCCESS,"flash.create.success",[strtolower($this->trans($this->entity->slug())),$form->model]);
-
+                        $this->getRequest()->post("create_and_edit");
+                        $this->getRequest()->post("create_and_list");
+                        $this->getRequest()->post("create_and_create");
                         return $this->redirect([
                             'update',
                             'entity' => $this->entity->id,
@@ -310,6 +315,7 @@ class ManageController extends Controller {
                             'sender' => $form->model,
                         ]));
                     }
+                }else{
                 }
             }
             $buttonsEntity = [];
@@ -429,7 +435,7 @@ class ManageController extends Controller {
                 ],]));
             $buttons[] = html_entity_decode(\asdfstudio\admin\forms\widgets\Button::widget(
                 ['label' => "<i class=\"fa fa-plus-circle\"></i>&nbsp;".Yii::t('admin', 'button.create_and_create'),
-                'name' => 'button.create_and_create',
+                'name' => 'create_and_create',
                 'options' => [
                     'class' => 'btn btn-success',
                 ],]));

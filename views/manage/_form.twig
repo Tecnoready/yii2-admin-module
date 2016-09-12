@@ -1,10 +1,16 @@
 {% set fields = form.fields() %}
 {% set actions = form.actions() %}
+
 {% set htmlForm = active_form_begin({
     'options' : form.options,
 }) %}
 <div class="white-bg wrapper-content">
-<h3>{{ entity.slug|trans({},"admin") }}</h3>
+<h2>{{ entity.slug|trans({},"admin") }}</h2>
+{% if model.hasErrors() %}
+    <div class="alert alert-warning" role="alert">
+        {{ htmlForm.errorSummary(model)|raw }}
+    </div>
+{% endif %}
 <div class="model-form row">
     <div class="col-md-12">
         {% for attribute,field in fields %}
@@ -32,5 +38,6 @@
                 {{ button|raw }}
             {% endfor %}
         </div>
+        <input type="hidden" name="_post_action" value="none">
     {% endif %}
 {{ active_form_end() }}
