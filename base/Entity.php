@@ -203,7 +203,7 @@ abstract class Entity extends Component {
      */
     public function grid() {
         return [
-            'class' => GridView::className(),
+            'class' => \asdfstudio\admin\grids\Grid::className(),
         ];
     }
 

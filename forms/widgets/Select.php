@@ -47,12 +47,17 @@ class Select extends Base
             $this->query = call_user_func($this->query, $this->model);
         }
         if ($this->query instanceof ActiveQueryInterface) {
-            if (!$this->labelAttribute) {
-                throw new InvalidConfigException('Parameter "labelAttribute" is required');
-            }
+//            if (!$this->labelAttribute) {
+//                throw new InvalidConfigException('Parameter "labelAttribute" is required');
+//            }
             $this->items = $this->query->all();
             foreach ($this->items as $i => $model) {
-                $this->items[$i] = AdminHelper::resolveAttribute($this->labelAttribute, $model);
+                if($this->labelAttribute){
+                    $value = AdminHelper::resolveAttribute($this->labelAttribute, $model);
+                }else{
+                    $value = (string)$model;
+                }
+                $this->items[$i] = $value;
             }
         }
         if ($this->allowEmpty) {
