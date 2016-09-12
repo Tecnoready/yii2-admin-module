@@ -199,7 +199,7 @@ class ManageController extends Controller {
                         $this->module->trigger(Entity::EVENT_UPDATE_SUCCESS, new Event([
                             'sender' => $form->model,
                         ]));
-                        $this->addAlertMessage(self::ALERT_TYPE_SUCCESS,"flash.update.success",[strtolower($this->trans($this->entity->slug())),$form->model]);
+                        $this->addAlertMessage(self::ALERT_TYPE_SUCCESS,"flash.update.success",[mb_strtolower($this->trans($this->entity->slug())),$form->model]);
                         if($this->getRequest()->post("update_and_edit") === null){
                             return $this->redirect($url);
                         }
@@ -208,7 +208,7 @@ class ManageController extends Controller {
                         $this->module->trigger(Entity::EVENT_UPDATE_FAIL, new Event([
                             'sender' => $form->model,
                         ]));
-                        $this->addAlertMessage(self::ALERT_TYPE_DANGER,"flash.update.error",[strtolower($this->trans($this->entity->slug())),$form->model]);
+                        $this->addAlertMessage(self::ALERT_TYPE_DANGER,"flash.update.error",[mb_strtolower($this->trans($this->entity->slug())),$form->model]);
                     }
                 }
             }
@@ -238,14 +238,14 @@ class ManageController extends Controller {
             if (Yii::$app->getRequest()->getIsPost()) {
                 $transaction = Yii::$app->db->beginTransaction();
                 if ($this->model->delete()) {
-                    $this->addAlertMessage(self::ALERT_TYPE_SUCCESS,"flash.delete.success",[strtolower($this->trans($this->entity->slug())),$this->model]);
+                    $this->addAlertMessage(self::ALERT_TYPE_SUCCESS,"flash.delete.success",[mb_strtolower($this->trans($this->entity->slug())),$this->model]);
                     
                     
                     $this->module->trigger(Entity::EVENT_DELETE_SUCCESS, new Event([
                         'sender' => $this->model,
                     ]));
                 } else {
-                    $this->addAlertMessage(self::ALERT_TYPE_DANGER,"flash.delete.error",[strtolower($this->trans($this->entity->slug())),$this->model]);
+                    $this->addAlertMessage(self::ALERT_TYPE_DANGER,"flash.delete.error",[mb_strtolower($this->trans($this->entity->slug())),$this->model]);
                     $this->module->trigger(Entity::EVENT_DELETE_FAIL, new Event([
                         'sender' => $this->model,
                     ]));
@@ -297,7 +297,7 @@ class ManageController extends Controller {
                         $this->module->trigger(Entity::EVENT_CREATE_SUCCESS, new Event([
                             'sender' => $form->model,
                         ]));
-                        $this->addAlertMessage(self::ALERT_TYPE_SUCCESS,"flash.create.success",[strtolower($this->trans($this->entity->slug())),$form->model]);
+                        $this->addAlertMessage(self::ALERT_TYPE_SUCCESS,"flash.create.success",[mb_strtolower($this->trans($this->entity->slug())),$form->model]);
                         $this->getRequest()->post("create_and_edit");
                         $this->getRequest()->post("create_and_list");
                         $this->getRequest()->post("create_and_create");
@@ -309,7 +309,7 @@ class ManageController extends Controller {
                     } else {
                         $form->afterFail();
                         
-                        $this->addAlertMessage(self::ALERT_TYPE_DANGER,"flash.create.error",[strtolower($this->trans($this->entity->slug()))]);
+                        $this->addAlertMessage(self::ALERT_TYPE_DANGER,"flash.create.error",[mb_strtolower($this->trans($this->entity->slug()))]);
                         
                         $this->module->trigger(Entity::EVENT_CREATE_FAIL, new Event([
                             'sender' => $form->model,

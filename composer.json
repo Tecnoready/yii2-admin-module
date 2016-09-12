@@ -16,6 +16,7 @@
   ],
   "minimum-stability": "dev",
   "require": {
+    "ext-mbstring": "*",
     "yiisoft/yii2": "*",
     "yiisoft/yii2-bootstrap": "*",
     "rmrevin/yii2-fontawesome": "2.2.1",
