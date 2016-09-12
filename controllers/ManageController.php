@@ -294,8 +294,6 @@ class ManageController extends Controller {
                 $form->load(Yii::$app->getRequest()->getBodyParams());
                 $form->beforeSave();
                 if ($form->model->validate()) {
-                    var_dump($_POST);
-                    DIE;
                     if ($form->model->save()) {
                         $form->afterSave();
                         $this->module->trigger(Entity::EVENT_CREATE_SUCCESS, new Event([
