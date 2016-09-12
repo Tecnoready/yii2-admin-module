@@ -157,8 +157,6 @@ class ManageController extends Controller {
             }
             
             $detail = ArrayHelper::merge($defaultDetail, $detail);
-            $primaryKey = $entity->primaryKey();
-            
             
             $buttonsTop = $this->buildButtons(["index","create","edit","delete"],$entity);
             

@@ -32,7 +32,7 @@ class Grid extends GridView {
                     </a>
                 </div>
             </div>
-            <div class="ibox-content text-center css-animation-box">
+            <div class="ibox-content css-animation-box no-padding">
             {items}
             </div>
             <div class="ibox-footer">
