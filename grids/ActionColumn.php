@@ -35,8 +35,9 @@ class ActionColumn extends \yii\grid\ActionColumn {
     protected function initDefaultButtons() {
 
         $entity     = Yii::$app->getRequest()->getQueryParam('entity', null);
-        $primaryKey = AdminHelper::getEntity($entity)->primaryKey();
-
+        $entityObject = AdminHelper::getEntity($entity);
+        $primaryKey = $entityObject->primaryKey();
+        $self = $this;
         if (!isset($this->buttons['view'])) {
             $this->buttons['view'] = function ($url, $model, $key) use ($entity, $primaryKey) {
                 $options = array_merge([
@@ -56,25 +57,28 @@ class ActionColumn extends \yii\grid\ActionColumn {
             };
         }
         if (!isset($this->buttons['update'])) {
-            $this->buttons['update'] = function ($url, $model, $key) use ($entity, $primaryKey) {
-                $options = array_merge([
-                    'title'      => Yii::t('admin', 'Edit'),
-                    'aria-label' => Yii::t('admin', 'Edit'),
-                    'data-pjax'  => '0',
-                ], $this->buttonOptions);
+            $this->buttons['update'] = function ($url, $model, $key) use ($entity, $primaryKey,$entityObject) {
+                if(method_exists($entityObject, 'canUpdate') && $entityObject->canUpdate()){
+                    $options = array_merge([
+                        'title'      => Yii::t('admin', 'Edit'),
+                        'aria-label' => Yii::t('admin', 'Edit'),
+                        'data-pjax'  => '0',
+                    ], $this->buttonOptions);
 
-                //Html::addCssClass($options, 'btn btn-warning');
+                    //Html::addCssClass($options, 'btn btn-warning');
 
-                return Html::a("<i class=\"glyphicon glyphicon-edit\"></i>&nbsp;".Yii::t('admin', 'button.edit'), [
-                    'manage/update',
-                    'entity' => $entity,
-                    'id'     => $model->{$primaryKey},
-                ], $options);
+                    return Html::a("<i class=\"glyphicon glyphicon-edit\"></i>&nbsp;".Yii::t('admin', 'button.edit'), [
+                        'manage/update',
+                        'entity' => $entity,
+                        'id'     => $model->{$primaryKey},
+                    ], $options);
+                }
             };
         }
         if (!isset($this->buttons['delete'])) {
-            $this->buttons['delete'] = function ($url, $model, $key) use ($entity, $primaryKey) {
-                $options = array_merge([
+            $this->buttons['delete'] = function ($url, $model, $key) use ($entity, $primaryKey,$entityObject,$self) {
+                if(method_exists($entityObject, 'canDelete') && $entityObject->canDelete()){
+                    $options = array_merge([
                     'title'      => Yii::t('admin', 'Delete'),
                     'aria-label' => Yii::t('admin', 'Delete'),
                     'data'       => [
@@ -84,14 +88,33 @@ class ActionColumn extends \yii\grid\ActionColumn {
                     ],
                 ], $this->buttonOptions);
 
-                //Html::addCssClass($options, 'btn btn-danger');
+                    //Html::addCssClass($options, 'btn btn-danger');
 
-                return Html::a("<i class='glyphicon glyphicon-remove'></i>&nbsp;".Yii::t('admin', 'button.delete'), [
-                    'manage/delete',
-                    'entity' => $entity,
-                    'id'     => $model->{$primaryKey},
-                ], $options);
+                    return Html::a("<i class='glyphicon glyphicon-remove'></i>&nbsp;".Yii::t('admin', 'button.delete'), [
+                        'manage/delete',
+                        'entity' => $entity,
+                        'id'     => $model->{$primaryKey},
+                    ], $options);
+                }//fin if
             };
+            if(method_exists($entityObject, 'canDelete') && $entityObject->canDelete()){
+                
+            }else{
+                $self->template = '
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-default btn-sm">{view}</button>
+                      <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="caret"></span>
+                        <span class="sr-only">Toggle Dropdown</span>
+                      </button>
+                      <ul class="dropdown-menu">
+                        <li>{view}</li> 
+                        <li>{update}</li> 
+                        <li>{delete}</li>
+                      </ul>
+                    </div>
+                    ';
+            }
         }
     }
 }

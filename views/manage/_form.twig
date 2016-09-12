@@ -26,9 +26,11 @@
 </div>
 </div>
     <div>&nbsp;</div>
-    <div class="well well-small form-actions">
-        {% for button in buttonsEntity %}
-            {{ button|raw }}
-        {% endfor %}
-    </div>
+    {% if buttonsEntity|length > 0 %}
+        <div class="well well-small form-actions">
+            {% for button in buttonsEntity %}
+                {{ button|raw }}
+            {% endfor %}
+        </div>
+    {% endif %}
 {{ active_form_end() }}

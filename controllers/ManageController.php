@@ -387,17 +387,17 @@ class ManageController extends Controller {
     private function buildButtons(array $names,$entity) {
         $buttons = [];
         $primaryKey = $entity->primaryKey();
-        if(in_array("view",$names)){
+        if(in_array("view",$names) && method_exists($entity, 'canRead') && $entity->canRead()){
             $actionColumn = new \asdfstudio\admin\grids\ActionColumn();
             $buttons[] = $actionColumn->buttons["view"](null,$this->model,null);
         }
-        if(in_array("create",$names)){
+        if(in_array("create",$names) && method_exists($this->entity, 'canCreate') && $this->entity->canCreate()){
             $buttons[] = Html::a("<i class='fa fa-plus-circle'></i>&nbsp;".Yii::t('admin', 'button.add_new'), ['create', 'entity' => $entity->id], ['class' => '']);
         }
-        if(in_array("edit",$names)){
+        if(in_array("edit",$names) && method_exists($this->entity, 'canUpdate') && $this->entity->canUpdate()){
             $buttons []= Html::a("<i class=\"glyphicon glyphicon-edit\"></i>&nbsp;".Yii::t('admin', 'button.edit'), ['update', 'entity' => $entity->id, 'id' => $this->model->{$primaryKey}], ['class' => '']);
         }
-        if(in_array("delete",$names)){
+        if(in_array("delete",$names) && method_exists($this->entity, 'canDelete') && $this->entity->canDelete()){
             $buttons []= Html::a("<i class='glyphicon glyphicon-remove'></i>&nbsp;".Yii::t('admin', 'button.delete'), ['delete', 'entity' => $entity->id, 'id' => $this->model->{$primaryKey}], [
                 'class' => '',
                 'data' => [
@@ -447,13 +447,15 @@ class ManageController extends Controller {
                 'options' => [
                     'class' => 'btn btn-success',
                 ],]));
-            $buttons []= Html::a("<i class='fa fa-minus-circle'></i>&nbsp;".Yii::t('admin', 'button.delete'), ['delete', 'entity' => $entity->id, 'id' => $this->model->{$primaryKey}], [
-                'class' => 'btn btn-danger',
-                'data' => [
-                    'confirm' => $this->trans("question.delete.confirm",[$this->model]),
-                    'method' => 'post',
-                ],
-            ]);
+            if(method_exists($this->entity, 'canDelete') && $this->entity->canDelete()){
+                $buttons []= Html::a("<i class='fa fa-minus-circle'></i>&nbsp;".Yii::t('admin', 'button.delete'), ['delete', 'entity' => $entity->id, 'id' => $this->model->{$primaryKey}], [
+                    'class' => 'btn btn-danger',
+                    'data' => [
+                        'confirm' => $this->trans("question.delete.confirm",[$this->model]),
+                        'method' => 'post',
+                    ],
+                ]);
+            }
         }
         return $buttons;
     }
