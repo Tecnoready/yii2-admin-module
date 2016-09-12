@@ -21,6 +21,11 @@ return [
     "button.view" => "Mostrar",
     "button.edit" => "Editar",
     "button.delete" => "Borrar",
+    "button.create_and_edit" => "Crear y editar",
+    "button.create_and_list" => "Crear y regresar al listado",
+    "button.create_and_create" => "Crear y agregar otro",
+    "button.update_and_edit" => "Actualizar",
+    "button.update_and_list" => "Actualizar y cerrar",
     "label.actions" => "Acciones",
     "label.add_new" => "Crear {0}",
     "button.add_new" => "Agregar nuevo",
@@ -33,4 +38,5 @@ return [
     "alert.info" => "Información",
     "alert.warning" => "Cuidado",
     "alert.danger" => "Ha ocurrido un error",
+    "question.delete.confirm" => "Seguro que desea eliminar el item '{0}'?",
 ];

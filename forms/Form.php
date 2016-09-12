@@ -95,13 +95,7 @@ class Form extends Model
     public function actions()
     {
         return [
-            'save' => [
-                'class' => Button::className(),
-                'label' => "<i class=\"fa fa-save\"></i>&nbsp;".Yii::t('admin', 'button.save'),
-                'options' => [
-                    'class' => 'btn btn-success'
-                ],
-            ]
+            
         ];
     }
 

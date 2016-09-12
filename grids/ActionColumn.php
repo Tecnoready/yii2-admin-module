@@ -78,7 +78,7 @@ class ActionColumn extends \yii\grid\ActionColumn {
                     'title'      => Yii::t('admin', 'Delete'),
                     'aria-label' => Yii::t('admin', 'Delete'),
                     'data'       => [
-                        'confirm' => Yii::t('admin', 'Are you sure you want to delete this item?'),
+                        'confirm' => Yii::t('admin', 'question.delete.confirm',[$model]),
                         'method'  => 'post',
                         'pjax'    => '0',
                     ],

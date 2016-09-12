@@ -215,6 +215,8 @@ class ManageController extends Controller {
                 if (isset($action['visible']) && !$action['visible']) continue;
                 $buttonsEntity[]= html_entity_decode($action['class']::widget(array_merge($action, ['name' => $name])));
             }
+            $buttonsEntity = array_merge($buttonsEntity,$this->buildButtons(["form_update"], $this->entity));
+            
             $buttonsTop = $this->buildButtons(["view","index","create"], $entity);
             return $this->render('update.twig', [
                 'entity' => $this->entity,
@@ -261,7 +263,22 @@ class ManageController extends Controller {
             $form = Yii::createObject(ArrayHelper::merge([
                 'model' => $model,
             ], $this->entity->form()));
-
+            
+            $url = \yii\helpers\Url::to([
+                'manage/index',
+                'entity' => $this->entity->slug(),
+            ]);
+            $newEntity = (string)$model;
+            if(empty($newEntity)){
+                $newEntity = "-";
+            }
+            $breadcrumb = Yii::$container->get("common.manager.breadcrumb");
+            $breadcrumb->breadcrumb([
+                $url => Yii::t("admin", sprintf("%s list",$this->entity->slug())),
+            ])->breadcrumb([
+                Yii::$app->getRequest()->url => Yii::t("admin",$newEntity),
+            ]);
+            
             if (Yii::$app->getRequest()->getIsPost()) {
                 $form->load(Yii::$app->getRequest()->getBodyParams());
                 $form->beforeSave();
@@ -291,6 +308,8 @@ class ManageController extends Controller {
                 if (isset($action['visible']) && !$action['visible']) continue;
                 $buttonsEntity[]= html_entity_decode($action['class']::widget(array_merge($action, ['name' => $name])));
             }
+            $buttonsEntity = array_merge($buttonsEntity,$this->buildButtons(["form_create"], $this->entity));
+            
             $buttonsTop = $this->buildButtons(["index","create"], $this->entity);
             return $this->render('create.twig', [
                 'entity' => $this->entity,
@@ -372,7 +391,7 @@ class ManageController extends Controller {
             $buttons []= Html::a("<i class='glyphicon glyphicon-remove'></i>&nbsp;".Yii::t('admin', 'button.delete'), ['delete', 'entity' => $entity->id, 'id' => $this->model->{$primaryKey}], [
                 'class' => '',
                 'data' => [
-                    'confirm' => Yii::t('admin', 'Are you sure you want to delete this item?'),
+                    'confirm' => $this->trans("question.delete.confirm",[$this->model]),
                     'method' => 'post',
                 ],
             ]);
@@ -383,6 +402,48 @@ class ManageController extends Controller {
                 'entity' => $entity->slug(),
             ]);
             $buttons[] = Html::a('<i class="fa fa-list"></i>&nbsp;'.Yii::t('admin', 'button.return_to_index'), $url);
+        }
+        
+        if(in_array("form_create", $names)){
+            $buttons[] = html_entity_decode(\asdfstudio\admin\forms\widgets\Button::widget(
+                ['label' => "<i class=\"fa fa-save\"></i>&nbsp;".Yii::t('admin', 'button.create_and_edit'),
+                'name' => 'create_and_edit',
+                'options' => [
+                    'class' => 'btn btn-success',
+                ],]));
+            $buttons[] = html_entity_decode(\asdfstudio\admin\forms\widgets\Button::widget(
+                ['label' => "<i class=\"fa fa-save\"></i><i class=\"fa fa-list\"></i>&nbsp;".Yii::t('admin', 'button.create_and_list'),
+                'name' => 'create_and_list',
+                'options' => [
+                    'class' => 'btn btn-success',
+                ],]));
+            $buttons[] = html_entity_decode(\asdfstudio\admin\forms\widgets\Button::widget(
+                ['label' => "<i class=\"fa fa-plus-circle\"></i>&nbsp;".Yii::t('admin', 'button.create_and_create'),
+                'name' => 'button.create_and_create',
+                'options' => [
+                    'class' => 'btn btn-success',
+                ],]));
+        }
+        if(in_array("form_update", $names)){
+            $buttons[] = html_entity_decode(\asdfstudio\admin\forms\widgets\Button::widget(
+                ['label' => "<i class=\"fa fa-save\"></i>&nbsp;".Yii::t('admin', 'button.update_and_edit'),
+                'name' => 'update_and_edit',
+                'options' => [
+                    'class' => 'btn btn-success',
+                ],]));
+            $buttons[] = html_entity_decode(\asdfstudio\admin\forms\widgets\Button::widget(
+                ['label' => "<i class=\"fa fa-save\"></i><i class=\"fa fa-list\"></i>&nbsp;".Yii::t('admin', 'button.update_and_list'),
+                'name' => 'update_and_list',
+                'options' => [
+                    'class' => 'btn btn-success',
+                ],]));
+            $buttons []= Html::a("<i class='fa fa-minus-circle'></i>&nbsp;".Yii::t('admin', 'button.delete'), ['delete', 'entity' => $entity->id, 'id' => $this->model->{$primaryKey}], [
+                'class' => 'btn btn-danger',
+                'data' => [
+                    'confirm' => $this->trans("question.delete.confirm",[$this->model]),
+                    'method' => 'post',
+                ],
+            ]);
         }
         return $buttons;
     }
