@@ -13,7 +13,7 @@ use yii\widgets\DetailView;
  * Class Entity
  * @package asdfstudio\admin
  */
-abstract class Entity extends Component {
+abstract class Admin extends Component {
 
     /**
      * Triggers after new model creation
