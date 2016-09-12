@@ -36,7 +36,7 @@ return [
     "flash.update.error" => "Elemento {0} '{1}' se no se pudo actualizarse.",
     "flash.create.success" => "Elemento {0} '{1}' creado satisfactoriamente.",
     "flash.create.error" => "Ocurrio un error al crear el elemento {0}",
-    "flash.delete.success" => "Elemento {0} '{1}' eliminado satisfactoriamente.",
+    "flash.delete.success" => "Elemento {0} '{1}' su eliminado satisfactoriamente.",
     "flash.delete.error" => "Elemento {0} '{1}' pudo ser eliminado.",
     "alert.success" => "Bien",
     "alert.info" => "Información",
