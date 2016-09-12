@@ -168,6 +168,7 @@ class ManageController extends Controller {
             return $this->render('view.twig', [
                 'buttonsTop' => $buttonsTop,
                 'content' => $content,
+                'entity' => $entity,
             ]);
         } else {
             throw new ForbiddenHttpException(Yii::t('yii', 'You are not allowed to perform this action.'));
