@@ -4,7 +4,7 @@ use yii\grid\GridView;
 
 /**
  * @var yii\web\View $this
- * @var \asdfstudio\admin\base\Entity $entity
+ * @var \asdfstudio\admin\base\Admin $entity
  * @var \yii\data\ActiveDataProvider $dataProvider
  * @var array $columns
  */

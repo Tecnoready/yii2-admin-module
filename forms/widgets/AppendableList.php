@@ -4,7 +4,7 @@
 namespace asdfstudio\admin\forms\widgets;
 
 
-use asdfstudio\admin\base\Entity;
+use asdfstudio\admin\base\Admin;
 use yii\data\ActiveDataProvider;
 use yii\db\ActiveQuery;
 
@@ -16,8 +16,8 @@ class AppendableList extends Base
      */
     public $query;
     /**
-     * Entity class
-     * @var string|Entity
+     * Admin class
+     * @var string|Admin
      */
     public $entity;
     /**

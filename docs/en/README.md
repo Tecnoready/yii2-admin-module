@@ -34,10 +34,10 @@ It's all. Now you can you can go to the page by `/admin`.
 ###Registration of models
 
 Now you need to register your first model in dashboard. Create class `UserEntity` in `admin/entities`.
-Class should inherit `asdfstudio\admin\base\Entity`.
+Class should inherit `asdfstudio\admin\base\Admin`.
 
 ```php
-use asdfstudio\admin\base\Entity;
+use asdfstudio\admin\base\Admin;
 use common\models\User;
 
 class UserEntity extends Entity

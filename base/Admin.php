@@ -10,7 +10,7 @@ use ReflectionClass;
 use yii\widgets\DetailView;
 
 /**
- * Class Entity
+ * Class Admin
  * @package asdfstudio\admin
  */
 abstract class Admin extends Component {
@@ -34,7 +34,7 @@ abstract class Admin extends Component {
     const EVENT_DELETE_FAIL = 'entity_delete_fail';
 
     /**
-     * @var string Entity Id
+     * @var string Admin Id
      */
     public $id;
 

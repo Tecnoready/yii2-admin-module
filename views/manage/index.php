@@ -8,7 +8,7 @@ use asdfstudio\admin\components\AdminFormatter;
 /**
  * @var \yii\web\View $this
  * @var \yii\data\ActiveDataProvider $modelsProvider
- * @var \asdfstudio\admin\base\Entity $entity
+ * @var \asdfstudio\admin\base\Admin $entity
  */
 $this->title = $entity->labels()[1];
 $this->params['breadcrumbs'][] = $this->title;

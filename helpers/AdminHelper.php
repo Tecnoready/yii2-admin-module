@@ -6,14 +6,14 @@ namespace asdfstudio\admin\helpers;
 
 use Yii;
 use asdfstudio\admin\Module;
-use asdfstudio\admin\base\Entity;
+use asdfstudio\admin\base\Admin;
 use yii\db\ActiveRecord;
 
 class AdminHelper
 {
     /**
-     * @param string $entity Entity class name or Id
-     * @return Entity|null
+     * @param string $entity Admin class name or Id
+     * @return Admin|null
      */
     public static function getEntity($entity)
     {

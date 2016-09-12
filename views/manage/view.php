@@ -8,7 +8,7 @@ use asdfstudio\admin\components\AdminFormatter;
 /**
  * @var yii\web\View $this
  * @var yii\db\ActiveRecord $model
- * @var asdfstudio\admin\base\Entity $entity
+ * @var asdfstudio\admin\base\Admin $entity
  */
 $this->title = $entity->labels()[0];
 $this->params['breadcrumbs'][] = ['label' => $entity->labels()[1], 'url' => ['manage/index', 'entity' => $entity->id]];
