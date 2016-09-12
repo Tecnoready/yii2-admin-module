@@ -3699,6 +3699,9 @@ img.circle-border {
   background-color: #ffffff;
   padding: 0;
   margin-bottom: 0;
+    position: absolute;
+    top: 20px;
+    left: 72px;
 }
 .breadcrumb > li a {
   color: inherit;

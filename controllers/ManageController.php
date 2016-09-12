@@ -229,6 +229,8 @@ class ManageController extends Controller {
             $actionColumn = new \asdfstudio\admin\grids\ActionColumn();
             $buttonsTop = [];
             $buttonsTop[] = $actionColumn->buttons["view"](null,$this->model,null);
+            $buttonsTop[] = Html::a('<i class="fa fa-list"></i>&nbsp;'.Yii::t('admin', 'button.return_to_index'), $url);
+            $buttonsTop[] = Html::a("<i class='fa fa-plus-circle'></i>&nbsp;".Yii::t('admin', 'button.add_new'), ['create', 'entity' => $entity->id], ['class' => '']);
             return $this->render('update.twig', [
                 'entity' => $this->entity,
                 'model' => $this->model,
@@ -299,7 +301,7 @@ class ManageController extends Controller {
                 }
             }
 
-            return $this->render('create', [
+            return $this->render('create.twig', [
                 'entity' => $this->entity,
                 'model' => $model,
                 'form' => $form,

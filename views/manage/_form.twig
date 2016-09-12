@@ -3,8 +3,10 @@
 {% set htmlForm = active_form_begin({
     'options' : form.options,
 }) %}
+<div class="white-bg wrapper-content">
+<h3>{{ entity.slug|trans({},"admin") }}</h3>
 <div class="model-form row">
-    <div class="col-md-10">
+    <div class="col-md-12">
         {% for attribute,field in fields %}
             {% set visible = true %}
             {% if field == false or (field['visible'] is defined and field['visible'] == false) %}
@@ -22,6 +24,8 @@
         {# Render fields #}
     </div>
 </div>
+</div>
+    <div>&nbsp;</div>
     <div class="well well-small form-actions">
         {% for button in buttonsEntity %}
             {{ button|raw }}

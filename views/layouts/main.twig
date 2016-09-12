@@ -8,11 +8,23 @@
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-sm-4">
             <h2>{% block title_area %}{{ this.title }}{% endblock %}</h2>
-            {{ breadcrumb_render() }}
         </div>
         <div class="col-sm-8">
             <div class="title-action">
-                {% block action_area '' %}
+                {% block action_area %}
+                    {% if buttonsTop is defined %}
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-link btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{ "label.actions"|trans({},"admin") }} <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu pull-right">
+                                {% for button in buttonsTop %}
+                                    <li>{{ button|raw }}</li>
+                                    {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+                {% endblock action_area %}
             </div>
         </div>
     </div>

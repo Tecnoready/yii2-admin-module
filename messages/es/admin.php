@@ -17,6 +17,7 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
+    "button.return_to_index" => "Volver a la lista",
     "button.view" => "Mostrar",
     "button.edit" => "Editar",
     "button.delete" => "Borrar",
