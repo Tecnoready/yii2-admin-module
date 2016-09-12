@@ -62,4 +62,12 @@ abstract class Controller extends WebController {
     protected function trans($id,array $parameters = [],$domain = "admin") {
         return \Yii::t($domain, $id,$parameters);
     }
+    
+    /**
+     * 
+     * @return \yii\web\Request
+     */
+    protected function getRequest() {
+        return \Yii::$app->getRequest();
+    }
 }

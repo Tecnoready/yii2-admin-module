@@ -199,7 +199,9 @@ class ManageController extends Controller {
                             'sender' => $form->model,
                         ]));
                         $this->addAlertMessage(self::ALERT_TYPE_SUCCESS,"flash.update.success",[strtolower($this->trans($this->entity->slug())),$form->model]);
-                        return $this->redirect($url);
+                        if($this->getRequest()->post("update_and_list") !== null){
+                            return $this->redirect($url);
+                        }
                     } else {
                         $form->afterFail();
                         $this->module->trigger(Entity::EVENT_UPDATE_FAIL, new Event([
