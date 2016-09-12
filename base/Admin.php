@@ -42,7 +42,17 @@ abstract class Admin extends Component {
      * @var array Labels
      */
     public $labels;
-
+    
+    /**
+     * @var ReflectionClass()
+     */
+    private $reflection;
+    
+    public function __construct($config = array()) {
+        $this->reflection = new ReflectionClass(static::className());
+        return parent::__construct($config);
+    }
+    
     /**
      * Primary key for model. MUST be unique.
      * Using for loading model from DB and URL generation.
@@ -82,8 +92,7 @@ abstract class Admin extends Component {
      */
     public function slug() {
         $model = $this->model();
-        $reflection = new \ReflectionClass($this->className());
-        return strtolower(str_replace("Admin","",$reflection->getShortName()));
+        return strtolower(str_replace("Admin","",$this->reflection->getShortName()));
     }
 
     /**
@@ -164,8 +173,14 @@ abstract class Admin extends Component {
      * @return array
      */
     public function form() {
+        $classForm = $this->reflection->getNamespaceName().'\Form';
+        if(class_exists($classForm)){
+            $class = $classForm;
+        }else{
+            $class = Form::className();
+        }
         return [
-            'class' => Form::className(),
+            'class' => $class,
         ];
     }
 
@@ -202,8 +217,14 @@ abstract class Admin extends Component {
      * @return array
      */
     public function grid() {
+        $classGrid = $this->reflection->getNamespaceName().'\Grid';
+        if(class_exists($classGrid)){
+            $class = $classGrid;
+        }else{
+            $class = \asdfstudio\admin\grids\Grid::className();
+        }
         return [
-            'class' => \asdfstudio\admin\grids\Grid::className(),
+            'class' => $class,
         ];
     }
 
