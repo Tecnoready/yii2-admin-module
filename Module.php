@@ -186,7 +186,7 @@ class Module extends \yii\base\Module implements BootstrapInterface {
      *
      * @throws \yii\base\InvalidConfigException
      */
-    public function addEntity($entity,$label,$parameters = [], $forceRegister = false) {
+    public function addEntity($entity,$parameters = [], $forceRegister = false) {
         $group = $icon = $tag = null;
         $labelCatalogue = "admin";
         if(isset($parameters["group"])){
@@ -216,11 +216,14 @@ class Module extends \yii\base\Module implements BootstrapInterface {
 
         $this->entitiesClasses[$entity] = $id;
         $entityInstance = $this->entities[$id];
+        
         $item = $this->sidebar->addItem($entityInstance);
         $item->group = $group;
         $item->icon = $icon;
         $item->labelCatalogue = $labelCatalogue;
         $item->tag = $tag;
+        $item->label = $entityInstance->slug();
+        
         return $entityInstance;
     }
 
