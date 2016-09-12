@@ -18,9 +18,11 @@ namespace asdfstudio\admin\models\mapper;
  */
 class ShowMapper 
 {
+    protected $model;
     protected $list;
-    public function __construct() {
+    public function __construct($model) {
         $this->list = [];
+        $this->model = $model;
     }
     public function add($name,array $fieldDescriptionOptions = array()) {
         $this->list[$name] = $fieldDescriptionOptions;
@@ -30,5 +32,9 @@ class ShowMapper
     
     public function getList() {
         return $this->list;
+    }
+    
+    public function getModel() {
+        return $this->model;
     }
 }

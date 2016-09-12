@@ -135,8 +135,8 @@ class ManageController extends Controller {
                 Yii::$app->getRequest()->url => Yii::t("admin",(string)$this->model),
             ]);
             
-            $showMapper = new \asdfstudio\admin\models\mapper\ShowMapper();
             $model = $this->model;
+            $showMapper = new \asdfstudio\admin\models\mapper\ShowMapper($model);
             $detail = $entity->detail();
             $entity->configureShowFields($showMapper);
             $class = ArrayHelper::remove($detail, 'class', DetailView::className());
@@ -153,6 +153,7 @@ class ManageController extends Controller {
                     if(count($parameters) == 0){
                         $attributes[] = $field;
                     }else{
+                        $parameters["attribute"] = $field;
                         $attributes[$field] = $parameters;
                     }
                 }
