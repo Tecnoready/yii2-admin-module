@@ -50,14 +50,15 @@ class Select extends Base
 //            if (!$this->labelAttribute) {
 //                throw new InvalidConfigException('Parameter "labelAttribute" is required');
 //            }
-            $this->items = $this->query->all();
-            foreach ($this->items as $i => $model) {
+            $itemsResult = $this->query->all();
+            foreach ($itemsResult as $i => $model) {
+                $id = $model->id;
                 if($this->labelAttribute){
                     $value = AdminHelper::resolveAttribute($this->labelAttribute, $model);
                 }else{
                     $value = (string)$model;
                 }
-                $this->items[$i] = $value;
+                $this->items[$id] = $value;
             }
         }
         if ($this->allowEmpty) {
