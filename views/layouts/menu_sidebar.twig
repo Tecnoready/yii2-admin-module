@@ -28,11 +28,11 @@
 {% block label %}
     {% if options.allow_safe_labels and item.getExtra('safe_label', false) %}
         <span class="nav-label">
-            {{ item.label|raw }}
+            {{ item.label|trans({},item.attribute('labelCatalogue'))|raw }}
         </span>
     {% else %}
         <span class="nav-label">
-            {{ item.label }}
+            {{ item.label|trans({},item.attribute('labelCatalogue')) }}
         </span>
     {% endif %}
     {% if item.hasChildren %}

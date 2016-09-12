@@ -67,11 +67,13 @@ class MenuSidebarBuilder {
             $environment->getLoader()->addPath(Yii::getAlias("@vendor/knplabs/knp-menu/src/Knp/Menu/Resources/views/"));
         }
         $rootMenu = $this->rootMenu;
-        $rootMenu->addChild($this->trans('Dashboard'), array('uri' => Url::to(['admin/index'])))->setAttribute("icon", "fa fa-th-large");
+        $menuDashoard = $rootMenu->addChild($this->trans('Dashboard'), array('uri' => Url::to(['admin/index'])))->setAttribute("icon", "fa fa-th-large");
+        $menuDashoard->setAttribute("labelCatalogue","admin");
         
         $menus = [];
         
         $menuGroups = [];
+        $menuGroupsDefinition = Yii::$app->controller->module->sidebar->groups;
         foreach(Yii::$app->controller->module->sidebar->items as $i => $menuItem){
             $icon = $menuItem->icon;
             if($menuItem->group === null){
@@ -80,10 +82,21 @@ class MenuSidebarBuilder {
                 ]); 
             }else{
                 if(!isset($menuGroups[$menuItem->group])){
-                    $subMenu = $rootMenu->addChild($this->trans($menuItem->group), array('uri' => '#',
+                    $menuGroupParameters = [];
+                    if(isset($menuGroupsDefinition[$menuItem->group])){
+                        $menuGroupParameters = $menuGroupsDefinition[$menuItem->group];
+                    }
+                    $subMenu = $rootMenu->addChild($menuItem->group, array('uri' => '#',
                     "childrenAttributes" => [
                         "class" => "nav nav-second-level",
                     ],));
+                    if(isset($menuGroupParameters["icon"])){
+                        $subMenu->setAttribute("icon", $menuGroupParameters["icon"]);
+                    }
+                    if(isset($menuGroupParameters["tag"])){
+                        $subMenu->setAttribute("tag", $menuGroupParameters["tag"]);
+                    }
+                    $subMenu->setAttribute("labelCatalogue", $menuItem->labelCatalogue);
                     $menuGroups[$subMenu->getName()] = $subMenu;
                 }
                 $subMenu = $menuGroups[$menuItem->group];
@@ -94,6 +107,10 @@ class MenuSidebarBuilder {
             if($icon !== null){
                 $menu->setAttribute("icon", $icon);
             }
+            if($menuItem->tag !== null){
+                $menu->setAttribute("tag", $menuItem->tag);
+            }
+            $menu->setAttribute("labelCatalogue", $menuItem->labelCatalogue);
         }
         
        /** 
@@ -112,5 +129,4 @@ class MenuSidebarBuilder {
 //        die;
         return $renderer->render($this->rootMenu);
     }
-
 }

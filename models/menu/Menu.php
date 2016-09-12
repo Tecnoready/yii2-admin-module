@@ -21,6 +21,21 @@ class Menu extends Object
      * @var array
      */
     protected $order = [];
+    
+    public $groups = [];
+
+    public function init() {
+        parent::init();
+        $this->groups = [];
+    }
+    
+    public function addGroup($group,array $parameters = []) {
+        if(isset($this->groups[$group])){
+            throw new Exception(sprintf("The group '%s' is already added.",$group));
+        }
+        $this->groups[$group] = $parameters;
+        return $this;
+    }
 
     public function addCategory($label)
     {

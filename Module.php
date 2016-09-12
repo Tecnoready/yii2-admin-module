@@ -172,6 +172,12 @@ class Module extends \yii\base\Module implements BootstrapInterface {
         return $this->entities[$id];
     }
     
+    public function addMenuGroup($group,array $parameters = []) {
+        $this->sidebar->addGroup($group, $parameters);
+        
+        return $this;
+    }
+    
     /**
      * Register model in admin dashboard
      *
@@ -181,8 +187,20 @@ class Module extends \yii\base\Module implements BootstrapInterface {
      * @throws \yii\base\InvalidConfigException
      */
     public function addEntity($entity,$label,$parameters = [], $forceRegister = false) {
-        $group = null;
+        $group = $icon = $tag = null;
         $labelCatalogue = "admin";
+        if(isset($parameters["group"])){
+            $group = $parameters["group"];
+        }
+        if(isset($parameters["labelCatalogue"])){
+            $labelCatalogue = $parameters["labelCatalogue"];
+        }
+        if(isset($parameters["icon"])){
+            $icon = $parameters["icon"];
+        }
+        if(isset($parameters["tag"])){
+            $tag = $parameters["tag"];
+        }
         //label_catalogue,group
         $instance = new $entity([
         ]);
@@ -200,7 +218,9 @@ class Module extends \yii\base\Module implements BootstrapInterface {
         $entityInstance = $this->entities[$id];
         $item = $this->sidebar->addItem($entityInstance);
         $item->group = $group;
+        $item->icon = $icon;
         $item->labelCatalogue = $labelCatalogue;
+        $item->tag = $tag;
         return $entityInstance;
     }
 
