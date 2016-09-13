@@ -94,6 +94,11 @@ abstract class Admin extends Component {
         $model = $this->model();
         return strtolower(str_replace("Admin","",$this->reflection->getShortName()));
     }
+    public function id() {
+        $model = $this->model();
+        
+        return substr(md5($this->reflection->getName()), 0, 10).'-'.$this->slug();
+    }
 
     /**
      * Access control rules
