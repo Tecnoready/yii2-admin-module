@@ -27,9 +27,11 @@ class AdminExtension extends \Twig_Extension implements \Twig_Extension_GlobalsI
     }
     
     public function getGlobals() {
-        return [
-            "adminModuleService" => \Yii::$container->get("admin.module_service"),
-        ];
+        $globals = [];
+        if(\Yii::$container->has("admin.module_service")){
+            $globals["adminModuleService"] = \Yii::$container->get("admin.module_service");
+        }
+        return $globals;
     }
     
     public function unsetVar(array $array,$key) {
