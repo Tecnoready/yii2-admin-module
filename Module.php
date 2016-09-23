@@ -129,7 +129,7 @@ class Module extends \yii\base\Module implements BootstrapInterface {
         Yii::$container->setSingleton("common.manager.breadcrumb",function(){
             $breadcrumb = new \Tecnoready\Yii2\Common\Services\BreadcrumbManager();
             $breadcrumb->breadcrumb([
-                "/admin/admin/index" => Yii::t("admin", "Dashboard"),
+                $this->urlPrefix."/admin/index" => Yii::t("admin", "Dashboard"),
             ]);
             return $breadcrumb;
         });

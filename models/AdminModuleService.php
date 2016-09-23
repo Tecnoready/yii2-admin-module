@@ -23,7 +23,7 @@ class AdminModuleService {
      */
     public function getImageProfileUser()
     {
-        $imageProfileUser = \Yii::$app->getModule('admin')->imageProfileUser;
+        $imageProfileUser = \Yii::$app->getModule('admin-master')->imageProfileUser;
         if($imageProfileUser instanceof \Closure){
             $imageProfileUser = $imageProfileUser();
         }
